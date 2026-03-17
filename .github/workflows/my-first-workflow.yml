@@ -1,5 +1,4 @@
 name: my-first-workflow
-# To get a trigger on every push in this repo in any branch
 on:
   push:
   workflow_dispatch:
@@ -10,40 +9,15 @@ jobs:
     name: JOB1
     runs-on: ubuntu-latest
     steps:
-      - name: Running Single Command in Job1
-        run: echo "Hi this is my first GitHub workflow"
-      - name: Checking OS Release for Github hosted Runner
-        run: cat /etc/os-release
-
-  job2:
-    name: JOB2
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checking the hostname of the Github hosted Runner
-        run: hostname
-      - name: Running Multiple Commands in Job2
+      - name: Step-1
         run: |
-          echo "Hi from Bijan Nayak"
-          echo "Current time is $(date)"
-
-  job3:
-    name: JOB3
-    needs:
-      - job1
-      - job2
-    runs-on: ubuntu-latest
-    steps:
-      - name: Running a script in Job3
+          pwd
+          ls -ltr
+          hostname
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+      - name: Step-3
         run: |
-          echo "This is a script running in Job3"
-          echo "The current directory is $(pwd)"
-
-  job4:
-    name: JOB4
-    needs: job3
-    runs-on: ubuntu-latest
-    steps:
-      - name: Running a script in Job4
-        run: |
-          echo "This is a script running in Job4"
-          echo "The current user is $(whoami)"
+          pwd
+          ls -ltr
+          hostname
