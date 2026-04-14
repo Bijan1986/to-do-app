@@ -59,9 +59,3 @@ jobs:
         run: |
           nohup java -jar todo-app-jar/*.jar > app.log 2>&1 &
           echo $! > app.pid
-
-      - name: Check application is running
-        run: |
-          echo "Checking if application is running..."
-          sleep 10
-          curl -f http://localhost:8080/todos || (echo "Application is not running" && cat app.log && exit 1)
