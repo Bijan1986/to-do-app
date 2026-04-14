@@ -37,5 +37,25 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: todo-app-jar
-          path: build/libs/*.jar
+          path: build/libs/*-SNAPSHOT.jar
 
+  download:
+    name: Download artifacts
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Download application JAR
+        uses: actions/download-artifact@v4
+        with:
+          name: todo-app-jar
+      - name: List downloaded artifacts
+        run: |
+          echo "Downloaded artifacts:"
+          ls -la
+      - name: run jar
+        run: java -jar todo-app-jar/*.jar
+      - name: Check application is running
+        run: |
+          echo "Checking if application is running..."
+          sleep 10 # Wait for the application to start
+          curl -f http://localhost:8080/ || (echo "Application is not running" && exit 1)
