@@ -64,4 +64,4 @@ jobs:
         run: |
           echo "Checking if application is running..."
           sleep 10
-          curl -f http://localhost:8080/ || (echo "Application is not running" && cat app.log && exit 1)
+          curl -f http://localhost:8080/todos || (echo "Application is not running" && cat app.log && exit 1)
